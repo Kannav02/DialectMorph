@@ -1,0 +1,30 @@
+{
+  "name": "cli-tool",
+  "module": "index.ts",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "bunx tsc",
+    "start": "bun run build && dialectMorph"
+  },
+  "bin": {
+    "dialectMorph": "dist/index.js"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/commander": "^2.12.2",
+    "@types/figlet": "^1.5.8",
+    "@types/node": "^22.5.4",
+    "groq-sdk": "^0.7.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "cli-tool": ".",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
+    "figlet": "^1.7.0",
+    "openai": "^4.58.2"
+  }
+}
