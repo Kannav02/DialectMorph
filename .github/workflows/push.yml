@@ -1,0 +1,27 @@
+name: Linting and Formatting
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+jobs:
+  lint:
+    name: Prettier Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checks Out the Repository
+        uses: actions/checkout@v4
+      - name: Sets up the Bun enviornment
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+      - name: Installing Bun Dependencies
+        run: |
+          bun install .
+      - name: Checking for Linting
+        run: |
+          bunx prettier . --check
