@@ -21,7 +21,7 @@ program
     1. Java
     2. JavaScript
     3. C++
-    4. Python`
+    4. Python`,
   )
   .arguments("<files...>")
   .option("-o,--output <options>", "Output A Given File To The Given Language")
@@ -41,7 +41,7 @@ please choose from the following options
       const directoryPath = makeDir("transpiledFiles");
       files.forEach((file) => {
         const filePath = path.resolve(file);
-        console.log("HELLLO")
+        console.log("HELLLO");
 
         if (!fs.existsSync(filePath)) {
           console.error("The File Doesn't Exists");
@@ -52,7 +52,7 @@ please choose from the following options
           path.basename(file).split(".")[0],
           outputLanguage,
           directoryPath,
-          fileContents
+          fileContents,
         );
       });
     } catch (e) {

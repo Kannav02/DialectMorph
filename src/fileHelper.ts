@@ -14,7 +14,7 @@ export function createFile(
   fileName: string,
   fileExtension: string,
   dirPath: string,
-  fileContent: string
+  fileContent: string,
 ) {
   const totalPath = path.join(dirPath, `${fileName}.${fileExtension}`);
 
