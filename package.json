@@ -1,5 +1,5 @@
 {
-  "name": "cli-tool",
+  "name": "dialect-morph",
   "module": "index.ts",
   "type": "module",
   "version": "1.0.0",
@@ -10,7 +10,7 @@
     "format:check": "bunx prettier . --check"
   },
   "bin": {
-    "dialectMorph": "dist/index.js"
+    "dialectMorph": "./dist/index.js"
   },
   "devDependencies": {
     "@types/bun": "latest",
