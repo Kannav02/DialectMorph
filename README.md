@@ -41,7 +41,19 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
    bun link dialect-morph
    ```
 
-4. Set up your Groq API key:
+4. Run the following commands in the terminal to make sure that .bun/bin exists in the path variable
+
+   ```
+   export PATH="/Users/username/.bun/bin:$PATH"
+   ```
+
+   reload the shell config file
+
+   ```
+   source ~/.zshrc
+   ```
+
+5. Set up your Groq API key:
    - Create a `.env` file in the root directory or follow, an `.env.example` has been created to take a reference from it
    - Add your Groq API key: `GROQ_API_KEY=your_api_key_here`
 
