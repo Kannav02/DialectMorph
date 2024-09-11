@@ -23,11 +23,6 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
-    
   },
-  "exclude": [
-    "examples",
-    "node_modules",
-    "dist"
-  ]
+  "exclude": ["examples", "node_modules", "dist"]
 }
