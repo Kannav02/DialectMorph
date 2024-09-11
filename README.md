@@ -14,7 +14,7 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
 1. Clone the repository:
 
    ```
-   git clone https://github.com/yourusername/DialectMorph.git
+   git clone https://github.com/Kannav02/DialectMorph.git
    cd DialectMorph
    ```
 
