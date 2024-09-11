@@ -56,10 +56,13 @@ dialectMorph <input_files...> -o <output_language>
 The `input_files` argument can take multiple files at once and is a required argument
 the `output_language` argument is also a required argument
 
-Example:
+Examples:
+
+Take one of the files from the examples folder and run the following command
 
 ```
-dialectMorph myfile.py -o java
+dialectMorph ./examples/example.py -o java
+dialectMorph ./examples/example.cpp -o python
 ```
 
 This command will transpile `myfile.py` to Java and save the output in the `transpiledFiles` directory.
