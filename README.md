@@ -50,7 +50,7 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
 Run DialectMorph using the following command:
 
 ```
-bun run index.ts <input_files...> -o <output_language>
+dialectMorph <input_files...> -o <output_language>
 ```
 
 The `input_files` argument can take multiple files at once and is a required argument
@@ -59,7 +59,7 @@ the `output_language` argument is also a required argument
 Example:
 
 ```
-bun run index.ts myfile.py -o java
+dialectMorph myfile.py -o java
 ```
 
 This command will transpile `myfile.py` to Java and save the output in the `transpiledFiles` directory.
