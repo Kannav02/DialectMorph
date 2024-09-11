@@ -1,8 +1,12 @@
+#! /usr/bin/env bun
+
 import figlet, { textSync } from "figlet";
 import { Command } from "commander";
-import fs from "fs";
+import fs, { mkdir } from "fs";
 import path from "path";
 import { createFile, makeDir } from "./fileHelper";
+import { GroqClient } from "./LLMHandler";
+import { extractCodeBlock } from "./fileHelper";
 
 const program = new Command();
 console.log(textSync("DialectMorph"));
@@ -25,7 +29,7 @@ program
   )
   .arguments("<files...>")
   .option("-o,--output <options>", "Output A Given File To The Given Language")
-  .action((files: string[], options: string[] | any) => {
+  .action(async (files: string[], options: string[] | any) => {
     try {
       const outputLanguage: string = options.output as string;
       const keysArr = [...supportedLangMap.keys()];
@@ -39,22 +43,30 @@ please choose from the following options
         process.exit(1);
       }
       const directoryPath = makeDir("transpiledFiles");
-      files.forEach((file) => {
+      const groqClient = GroqClient.getInstance();
+      files.forEach(async (file) => {
         const filePath = path.resolve(file);
-        console.log("HELLLO");
-
         if (!fs.existsSync(filePath)) {
           console.error("The File Doesn't Exists");
           process.exit(1);
         }
         const fileContents = fs.readFileSync(filePath, "utf-8");
-        createFile(
-          path.basename(file).split(".")[0],
-          outputLanguage,
-          directoryPath,
+        const fileName = path.basename(file).split(".")[0];
+        const fileExtension = path.basename(file).split(".")[1];
+
+        const message = await groqClient.getGroqChatCompletion(
           fileContents,
+          fileExtension,
+          outputLanguage,
         );
+        const finalMessage = message as string;
+        const code = extractCodeBlock(finalMessage);
+
+        createFile(fileName, outputLanguage, directoryPath, code);
       });
+      console.log(
+        `\nThe files have been created in the transpiledFiles folder under the root directory`,
+      );
     } catch (e) {
       console.log(e);
       process.exit(1);
