@@ -23,22 +23,23 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
    ```
    bun install
    ```
+
 3. Link and Install Bun Binaries in the Global Scope
 
    we would have to register the CLI tool globally and then also install the binaries in the global scope to make it useful in the terminal
-   
-   to register the CLI tool globally ,run the following command 
+
+   to register the CLI tool globally ,run the following command
 
    ```
    bun link
    ```
+
    after this,
    to install the bun binaries globally, run the following commmand
 
    ```
    bun link dialect-morph
    ```
-
 
 4. Set up your Groq API key:
    - Create a `.env` file in the root directory or follow, an `.env.example` has been created to take a reference from it
