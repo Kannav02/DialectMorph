@@ -24,7 +24,13 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
    bun install
    ```
 
-3. Link and Install Bun Binaries in the Global Scope
+3. Run the following commands to have bun build/transpile typescript files to javascript so as to run the binary
+
+```
+bun run build
+```
+
+4. Link and Install Bun Binaries in the Global Scope
 
    we would have to register the CLI tool globally and then also install the binaries in the global scope to make it useful in the terminal
 
@@ -41,7 +47,7 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
    bun link dialect-morph
    ```
 
-4. Run the following commands in the terminal to make sure that .bun/bin exists in the path variable
+5. Run the following commands in the terminal to make sure that .bun/bin exists in the path variable
 
    ```
    export PATH="/Users/username/.bun/bin:$PATH"
@@ -53,7 +59,7 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
    source ~/.zshrc
    ```
 
-5. Set up your Groq API key:
+6. Set up your Groq API key:
    - Create a `.env` file in the root directory or follow, an `.env.example` has been created to take a reference from it
    - Add your Groq API key: `GROQ_API_KEY=your_api_key_here`
 
