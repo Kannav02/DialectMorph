@@ -24,7 +24,7 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
    bun install
    ```
 
-3. Run the following commands to have bun build/transpile typescript files to javascript so as to run the binary 
+3. Run the following commands to have bun build/transpile typescript files to javascript so as to run the binary
 
 ```
 bun run build
