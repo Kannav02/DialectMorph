@@ -1,4 +1,4 @@
-#! /usr/bin/env bun
+#!/usr/bin/env bun
 
 import figlet, { textSync } from "figlet";
 import { Command } from "commander";
@@ -20,6 +20,7 @@ const supportedLangMap = new Map([
 
 program
   .version("1.0.0")
+  .usage("dalectMorph <input_files> -o <output_language>")
   .description(
     `This is a tool designed to transpile code from one language to the other, the options that this support right now is just the following ones
     1. Java
@@ -28,10 +29,17 @@ program
     4. Python`,
   )
   .arguments("<files...>")
-  .option("-o,--output <options>", "Output A Given File To The Given Language")
+  .option(
+    "-l,--language <options>",
+    "Output A Given File To The Given Language",
+  )
+  .option("-m,--model <options>", "Give the model for the API to be used")
+  .option("-a,--api_key <options>", "Provide the API Key for Groq API")
   .action(async (files: string[], options: string[] | any) => {
     try {
-      const outputLanguage: string = options.output as string;
+      const outputLanguage: string = options.language as string;
+      const apiKey = options.api_key ?? "";
+      const modelName = options.model ?? "";
       const keysArr = [...supportedLangMap.keys()];
       if (!keysArr.includes(outputLanguage.toLowerCase())) {
         console.error(`The output language is not supported by the tool,
@@ -62,7 +70,12 @@ please choose from the following options
         const finalMessage = message as string;
         const code = extractCodeBlock(finalMessage);
 
-        createFile(fileName, outputLanguage, directoryPath, code);
+        createFile(
+          fileName,
+          supportedLangMap.get(outputLanguage.toLowerCase()) as string,
+          directoryPath,
+          code,
+        );
       });
       console.log(
         `\nThe files have been created in the transpiledFiles folder under the root directory`,

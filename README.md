@@ -62,7 +62,7 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
 Run DialectMorph using the following command:
 
 ```
-dialectMorph <input_files...> -o <output_language>
+dialectMorph <input_files...> -l <output_language>
 ```
 
 The `input_files` argument can take multiple files at once and is a required argument
@@ -73,8 +73,8 @@ Examples:
 Take one of the files from the examples folder and run the following command
 
 ```
-dialectMorph ./examples/example.py -o java
-dialectMorph ./examples/example.cpp -o python
+dialectMorph ./examples/example.py -l java
+dialectMorph ./examples/example.cpp -l python
 ```
 
 This command will transpile `myfile.py` to Java and save the output in the `transpiledFiles` directory.
