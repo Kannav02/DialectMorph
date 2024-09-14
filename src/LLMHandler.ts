@@ -29,7 +29,7 @@ export class GroqClient {
           role: "system",
           content: `you are a code transpilation assistant. Your task is to convert source code from one programming language to another specified
             language. You will receive the source code and the target language. for each output of transpiled code, Ensure the transpiled code maintains the original functionality and logic 
-            while adapting to the target language's idioms and best practices. Support transpilation between Python, JavaScript, Java, C++, 
+            while adapting to the target language's idioms and best practices. Support transpilation for this language ${outputType}, 
             TypeScript, and Ruby.Your goal is to produce accurate, readable, and efficient code in the target language and to just return back code , no other things so i can add them into the file directly.`,
         },
         {
