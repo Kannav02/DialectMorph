@@ -1,5 +1,6 @@
 #!/usr/bin/env bun
 
+import chalk from "chalk";
 import figlet, { textSync } from "figlet";
 import { Command } from "commander";
 import fs, { mkdir } from "fs";
@@ -9,7 +10,7 @@ import { GroqClient } from "./LLMHandler";
 import { extractCodeBlock } from "./fileHelper";
 
 const program = new Command();
-console.log(textSync("DialectMorph"));
+console.log(chalk.yellow(textSync("DialectMorph")));
 
 const supportedLangMap = new Map([
   ["python", "py"],
@@ -20,14 +21,16 @@ const supportedLangMap = new Map([
 
 program
   .version("1.0.0")
-  .name("dialectMorph")
-  .usage("<input_files> -l <output_language>")
+  .name(chalk.magentaBright("dialectMorph"))
+  .usage(chalk.yellowBright("<input_files> -l <output_language>"))
   .description(
-    `This is a tool designed to transpile code from one language to the other, the options that this support right now is just the following ones
+    chalk.cyanBright(
+      `This is a tool designed to transpile code from one language to the other, the options that this support right now is just the following ones
     1. Java
     2. JavaScript
     3. C++
     4. Python`,
+    ),
   )
   .arguments("<files...>")
   .option(
@@ -36,6 +39,7 @@ program
   )
   .option("-m,--model <options>", "Give the model for the API to be used")
   .option("-a,--api_key <options>", "Provide the API Key for Groq API")
+
   .action(async (files: string[], options: string[] | any) => {
     try {
       const outputLanguage: string = options.language as string;
@@ -43,12 +47,14 @@ program
       const modelName = options.model ?? "";
       const keysArr = [...supportedLangMap.keys()];
       if (!keysArr.includes(outputLanguage.toLowerCase())) {
-        console.error(`The output language is not supported by the tool,
+        console.error(
+          chalk.red(`The output language is not supported by the tool,
 please choose from the following options
 1. Java
 2. JavaScript
 3. C++
-4. Python`);
+4. Python`),
+        );
         process.exit(1);
       }
       const directoryPath = makeDir("transpiledFiles");
@@ -56,7 +62,7 @@ please choose from the following options
       files.forEach(async (file) => {
         const filePath = path.resolve(file);
         if (!fs.existsSync(filePath)) {
-          console.error("The File Doesn't Exists");
+          console.error(chalk.redBright("The File Doesn't Exists"));
           process.exit(1);
         }
         const fileContents = fs.readFileSync(filePath, "utf-8");
@@ -79,10 +85,12 @@ please choose from the following options
         );
       });
       console.log(
-        `\nThe files have been created in the transpiledFiles folder under the root directory`,
+        chalk.green(
+          `\nThe files have been created in the transpiledFiles folder under the root directory`,
+        ),
       );
     } catch (e) {
-      console.log(e);
+      console.log(chalk.redBright(e));
       process.exit(1);
     }
   })
