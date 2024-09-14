@@ -20,7 +20,8 @@ const supportedLangMap = new Map([
 
 program
   .version("1.0.0")
-  .usage("dalectMorph <input_files> -o <output_language>")
+  .name("dialectMorph")
+  .usage("<input_files> -l <output_language>")
   .description(
     `This is a tool designed to transpile code from one language to the other, the options that this support right now is just the following ones
     1. Java

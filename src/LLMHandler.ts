@@ -47,7 +47,7 @@ export class GroqClient {
     return apiCall.choices[0].message.content;
   }
 }
-
+//  2nd callback
 // code for testing it outclear
 // const client = GroqClient.getInstance();
 
