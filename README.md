@@ -174,3 +174,7 @@ This project is licensed under the [MIT License](LICENSE).
 - [Groq SDK](https://www.groq.com/) for providing the language model API
 - [Commander.js](https://github.com/tj/commander.js/) for CLI argument parsing
 - [Figlet](https://github.com/patorjk/figlet.js) for ASCII art text generation
+- [Chalk](https://www.npmjs.com/package/chalk) for terminal styling
+- [Ora](https://www.npmjs.com/package/ora) for terminal spinner
+- [VHS](https://github.com/charmbracelet/vhs) for making the demo video for the CLI tool
+- [Prettier](https://prettier.io/) for maintaining consistent formatting throughout the code
