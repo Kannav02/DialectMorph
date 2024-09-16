@@ -5,7 +5,7 @@ export class GroqClient {
   private groq: Groq;
 
   private constructor(apiKey: string | null = null) {
-    this.groq = new Groq({ apiKey: apiKey ?? process.env.GROQ_API_KEY });
+    this.groq = new Groq({ apiKey: apiKey || process.env.GROQ_API_KEY });
   }
 
   public static getInstance(apiKey: string | null = null) {
