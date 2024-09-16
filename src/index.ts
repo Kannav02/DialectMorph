@@ -8,6 +8,7 @@ import path from "path";
 import { createFile, makeDir } from "./fileHelper";
 import { GroqClient } from "./LLMHandler";
 import { extractCodeBlock } from "./fileHelper";
+import ora, { spinners } from "ora";
 
 const program = new Command();
 console.log(chalk.yellow(textSync("DialectMorph")));
@@ -18,8 +19,6 @@ const supportedLangMap = new Map([
   ["c++", "cpp"],
   ["javascript", "js"],
 ]);
-const supportedModelMap = new Map([]);
-
 // global instance should be good, maybe
 const groqClient = GroqClient.getInstance();
 
@@ -45,12 +44,22 @@ program
     "-lm,--list_models",
     "Lists the available models for the Groq API",
     async () => {
-      const models = await groqClient.getGroqModels();
-      console.log("Available Models");
-      console.log("-----------------------------------------");
-      models.forEach((model) => {
-        console.log(chalk.yellowBright(model));
-      });
+      const spinner = ora({
+        spinner: "material",
+        text: "Getting Models",
+      }).start();
+      try {
+        const models = await groqClient.getGroqModels();
+        spinner.succeed("Fetched The Models");
+        console.log("Available Models");
+        console.log("-----------------------------------------");
+        models.forEach((model) => {
+          console.log(chalk.yellowBright(model));
+        });
+      } catch (e) {
+        spinner.fail("Operation Failed");
+        console.log(e);
+      }
     },
   )
   .option("-m,--model <options>", "Give the model for the API to be used")
