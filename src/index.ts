@@ -80,6 +80,7 @@ please choose from the following options
       const directoryPath = makeDir("transpiledFiles");
       if (files.length === 0) {
         console.error("No Files Provided ");
+        process.exit(1);
       }
       files.forEach(async (file) => {
         const filePath = path.resolve(file);
