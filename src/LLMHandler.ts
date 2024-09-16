@@ -25,6 +25,7 @@ export class GroqClient {
     fileContent: string,
     fileExtension: string,
     outputType: string,
+    modelName: string | null,
   ): Promise<string | null> {
     const apiCall = await this.groq.chat.completions.create({
       messages: [
@@ -44,7 +45,7 @@ export class GroqClient {
         },
       ],
       temperature: 0.2,
-      model: "llama3-8b-8192",
+      model: modelName || "llama3-8b-8192",
     });
 
     return apiCall.choices[0].message.content;
