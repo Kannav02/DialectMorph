@@ -4,13 +4,13 @@ export class GroqClient {
   private static instance: GroqClient;
   private groq: Groq;
 
-  private constructor() {
-    this.groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+  private constructor(apiKey: string | null = null) {
+    this.groq = new Groq({ apiKey: apiKey ?? process.env.GROQ_API_KEY });
   }
 
-  public static getInstance() {
+  public static getInstance(apiKey: string | null = null) {
     if (!GroqClient.instance) {
-      GroqClient.instance = new GroqClient();
+      GroqClient.instance = new GroqClient(apiKey);
     }
     return GroqClient.instance;
   }

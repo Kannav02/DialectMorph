@@ -1,14 +1,23 @@
 #!/usr/bin/env bun
 
 import chalk from "chalk";
-import figlet, { textSync } from "figlet";
+import { textSync } from "figlet";
 import { Command } from "commander";
-import fs, { mkdir } from "fs";
+import fs from "fs";
 import path from "path";
 import { createFile, makeDir } from "./fileHelper";
 import { GroqClient } from "./LLMHandler";
 import { extractCodeBlock } from "./fileHelper";
-import ora, { spinners } from "ora";
+import ora from "ora";
+
+let groqClient: GroqClient;
+
+const instantiateGroqInstance = (apiKey: string | null = null) => {
+  if (!groqClient) {
+    groqClient = GroqClient.getInstance(apiKey);
+  }
+  return groqClient;
+};
 
 const program = new Command();
 console.log(chalk.yellow(textSync("DialectMorph")));
@@ -19,8 +28,6 @@ const supportedLangMap = new Map([
   ["c++", "cpp"],
   ["javascript", "js"],
 ]);
-// global instance should be good, maybe
-const groqClient = GroqClient.getInstance();
 
 program
   .version(chalk.whiteBright("1.0.0"))
@@ -40,15 +47,19 @@ program
     "-l,--language <options>",
     "Output A Given File To The Given Language",
   )
-  .option(
-    "-lm,--list_models",
-    "Lists the available models for the Groq API",
-    async () => {
+  .option("-lm,--list_models", "Lists the available models for the Groq API")
+  .option("-m,--model <options>", "Give the model for the API to be used")
+  .option("-a,--api_key <options>", "Provide the API Key for Groq API")
+
+  .action(async (files: string[], options: string[] | any) => {
+    if (options.list_models) {
       const spinner = ora({
         spinner: "material",
         text: "Getting Models",
       }).start();
       try {
+        const apiKey = options.api_key ?? null;
+        instantiateGroqInstance(apiKey);
         const models = await groqClient.getGroqModels();
         spinner.succeed("Fetched The Models");
         console.log("Available Models");
@@ -60,21 +71,18 @@ program
         spinner.fail("Operation Failed");
         console.log(e);
       }
-    },
-  )
-  .option("-m,--model <options>", "Give the model for the API to be used")
-  .option("-a,--api_key <options>", "Provide the API Key for Groq API")
-
-  .action(async (files: string[], options: string[] | any) => {
-    if (options.list_models) {
       return;
     }
-    const spinner = ora({ spinner: "material", text: "Creating Files" }).start();
+    const spinner = ora({
+      spinner: "material",
+      text: "Creating Files",
+    }).start();
     try {
       const outputLanguage: string = options.language as string;
       const apiKey = options.api_key ?? "";
       const modelName = options.model ?? "";
       const keysArr = [...supportedLangMap.keys()];
+      instantiateGroqInstance(apiKey);
       if (!keysArr.includes(outputLanguage.toLowerCase())) {
         console.error(
           chalk.red(`The output language is not supported by the tool,
