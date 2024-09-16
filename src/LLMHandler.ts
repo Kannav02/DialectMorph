@@ -16,7 +16,10 @@ export class GroqClient {
   }
   public async getGroqModels() {
     const models = await this.groq.models.list();
-    return models;
+    const modelNames: string[] = models.data.map((model) => {
+      return model.id;
+    });
+    return modelNames;
   }
   public async getGroqChatCompletion(
     fileContent: string,
@@ -47,21 +50,3 @@ export class GroqClient {
     return apiCall.choices[0].message.content;
   }
 }
-//  2nd callback
-// code for testing it outclear
-// const client = GroqClient.getInstance();
-
-// (async () => {
-//   const models = await client.getGroqChatCompletion(
-//     `print("hello world")`,
-//     ".py",
-//     "JavaScript",
-//   );
-//   console.log(
-//     models.choices.forEach((choice) => {
-//       console.log(choice.message);
-//     }),
-//   );
-
-//   console.log(process.cwd());
-// })();

@@ -18,9 +18,13 @@ const supportedLangMap = new Map([
   ["c++", "cpp"],
   ["javascript", "js"],
 ]);
+const supportedModelMap = new Map([]);
+
+// global instance should be good, maybe
+const groqClient = GroqClient.getInstance();
 
 program
-  .version("1.0.0")
+  .version(chalk.whiteBright("1.0.0"))
   .name(chalk.magentaBright("dialectMorph"))
   .usage(chalk.yellowBright("<input_files> -l <output_language>"))
   .description(
@@ -32,15 +36,31 @@ program
     4. Python`,
     ),
   )
-  .arguments("<files...>")
+  .arguments("[files...]")
   .option(
     "-l,--language <options>",
     "Output A Given File To The Given Language",
+  )
+  .option(
+    "-lm,--list_models",
+    "Lists the available models for the Groq API",
+    async () => {
+      const models = await groqClient.getGroqModels();
+      console.log("Available Models");
+      console.log("-----------------------------------------");
+      models.forEach((model) => {
+        console.log(chalk.yellowBright(model));
+      });
+    },
   )
   .option("-m,--model <options>", "Give the model for the API to be used")
   .option("-a,--api_key <options>", "Provide the API Key for Groq API")
 
   .action(async (files: string[], options: string[] | any) => {
+    if (options.list_models) {
+      return;
+    }
+
     try {
       const outputLanguage: string = options.language as string;
       const apiKey = options.api_key ?? "";
@@ -58,7 +78,9 @@ please choose from the following options
         process.exit(1);
       }
       const directoryPath = makeDir("transpiledFiles");
-      const groqClient = GroqClient.getInstance();
+      if (files.length === 0) {
+        console.error("No Files Provided ");
+      }
       files.forEach(async (file) => {
         const filePath = path.resolve(file);
         if (!fs.existsSync(filePath)) {
