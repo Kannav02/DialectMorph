@@ -69,7 +69,7 @@ program
     if (options.list_models) {
       return;
     }
-
+    const spinner = ora({ spinner: "material", text: "Creating Files" }).start();
     try {
       const outputLanguage: string = options.language as string;
       const apiKey = options.api_key ?? "";
@@ -91,37 +91,42 @@ please choose from the following options
         console.error("No Files Provided ");
         process.exit(1);
       }
-      files.forEach(async (file) => {
-        const filePath = path.resolve(file);
-        if (!fs.existsSync(filePath)) {
-          console.error(chalk.redBright("The File Doesn't Exists"));
-          process.exit(1);
-        }
-        const fileContents = fs.readFileSync(filePath, "utf-8");
-        const fileName = path.basename(file).split(".")[0];
-        const fileExtension = path.basename(file).split(".")[1];
+      await Promise.all(
+        files.map(async (file) => {
+          const filePath = path.resolve(file);
+          if (!fs.existsSync(filePath)) {
+            console.error(chalk.redBright("The File Doesn't Exists"));
+            process.exit(1);
+          }
+          const fileContents = fs.readFileSync(filePath, "utf-8");
+          const fileName = path.basename(file).split(".")[0];
+          const fileExtension = path.basename(file).split(".")[1];
 
-        const message = await groqClient.getGroqChatCompletion(
-          fileContents,
-          fileExtension,
-          outputLanguage,
-        );
-        const finalMessage = message as string;
-        const code = extractCodeBlock(finalMessage);
+          const message = await groqClient.getGroqChatCompletion(
+            fileContents,
+            fileExtension,
+            outputLanguage,
+            modelName,
+          );
+          const finalMessage = message as string;
+          const code = extractCodeBlock(finalMessage);
 
-        createFile(
-          fileName,
-          supportedLangMap.get(outputLanguage.toLowerCase()) as string,
-          directoryPath,
-          code,
-        );
-      });
+          createFile(
+            fileName,
+            supportedLangMap.get(outputLanguage.toLowerCase()) as string,
+            directoryPath,
+            code,
+          );
+        }),
+      );
+      spinner.succeed("Succeeded");
       console.log(
         chalk.green(
           `\nThe files have been created in the transpiledFiles folder under the root directory`,
         ),
       );
     } catch (e) {
+      spinner.fail("Failed");
       console.log(chalk.redBright(e));
       process.exit(1);
     }
