@@ -8,6 +8,9 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
 - Command-line interface for easy usage
 - Automatically creates a `transpiledFiles` directory for output
 - Utilizes Groq's language model for accurate code conversion
+- User can also provide their own API-Key to be used in this CLI Tool
+- User can also request the the list of models available in the Groq-API
+- User can also specify the model that they want to use for their use-case
 
 ## Installation
 
@@ -24,11 +27,18 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
    bun install
    ```
 
+   **To skip steps 3 and 4 , you can run the following script, which will run all of these commands in a single-go**
+
+   ```
+   bun run linkage:build
+
+   ```
+
 3. Run the following commands to have bun build/transpile typescript files to javascript so as to run the binary
 
-```
-bun run build
-```
+   ```
+   bun run build
+   ```
 
 4. Link and Install Bun Binaries in the Global Scope
 
@@ -60,12 +70,21 @@ bun run build
    ```
 
 6. Set up your Groq API key:
-   - Create a `.env` file in the root directory or follow, an `.env.example` has been created to take a reference from it
+
+   - Create a `.env` file in the root directory or run the following command in the shell
+
+     ```
+     cp .env.example .env
+
+     ```
+
    - Add your Groq API key: `GROQ_API_KEY=your_api_key_here`
 
 ## Usage
 
 Run DialectMorph using the following command:
+
+### Main Command
 
 ```
 dialectMorph <input_files...> -l <output_language>
@@ -83,7 +102,39 @@ dialectMorph ./examples/example.py -l java
 dialectMorph ./examples/example.cpp -l python
 ```
 
-This command will transpile `myfile.py` to Java and save the output in the `transpiledFiles` directory.
+### Optional Arguments
+
+- a (--api_key)
+  This command is one of the optional arguments and can be used with the main command or the lm command (see below)
+
+  Command
+
+  ```
+  dialectMorph ./examples/examples.py -l C++ -a YOUR_API_KEY
+
+  ```
+
+- m (--model)
+  This command is one of the optional arguments and can be used with the main command to specify the model that you want to be used to fetch the request , by default the model is `llama3-8b-8192`
+
+  **BE CAREFUL TO ONLY USE A MODEL NAME THAT EXISTS AFTER YOU USE THE LM OPTION OTHERWISE THE PROGRAM WILL THROW AN ERROR**
+
+  Command
+
+  ```
+  dialectMorph ./example/example.py -l java -a YOUR_API_KEY -m MODEL_NAME
+
+  ```
+
+- lm (--list_models)
+  This command can be used on its own without the need to provide any files and is used to fetch the list of models that are available on Groq, it can also take an API-Key as one of the optional arguments
+
+  Command
+
+  ```
+   dialectMorph -lm -a YOUR_API_KEY
+
+  ```
 
 ## Supported Languages
 
