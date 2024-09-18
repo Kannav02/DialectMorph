@@ -50,7 +50,10 @@ program
   .option("-lm,--list_models", "Lists the available models for the Groq API")
   .option("-m,--model <options>", "Give the model for the API to be used")
   .option("-a,--api_key <options>", "Provide the API Key for Groq API")
-  .option("-t,--token", "Lists the prompt tokens, completion tokens, and total tokens consumed from using the Groq API")
+  .option(
+    "-t,--token",
+    "Lists the prompt tokens, completion tokens, and total tokens consumed from using the Groq API",
+  )
 
   .action(async (files: string[], options: string[] | any) => {
     if (options.list_models) {
@@ -102,7 +105,7 @@ please choose from the following options
       }
 
       const showTokenUsage = options.token || false;
-      
+
       let totalPromptTokens = 0;
       let totalCompletionTokens = 0;
       let totalTokens = 0;
@@ -122,10 +125,17 @@ please choose from the following options
             fileContents,
             fileExtension,
             outputLanguage,
-            modelName
-          )) as { message: string, usage: { prompt_tokens: number, completion_tokens: number, total_tokens: number } };
+            modelName,
+          )) as {
+            message: string;
+            usage: {
+              prompt_tokens: number;
+              completion_tokens: number;
+              total_tokens: number;
+            };
+          };
 
-          if (showTokenUsage && usage){
+          if (showTokenUsage && usage) {
             totalPromptTokens += usage.prompt_tokens;
             totalCompletionTokens += usage.completion_tokens;
             totalTokens += usage.total_tokens;
@@ -149,13 +159,16 @@ please choose from the following options
         ),
       );
 
-      if (showTokenUsage){
+      if (showTokenUsage) {
         console.warn(chalk.blueBright("Token Usage Information:"));
-        console.warn(`${chalk.yellowBright('Prompt Tokens:')} ${totalPromptTokens}`);
-        console.warn(`${chalk.yellowBright('Completion Tokens:')} ${totalCompletionTokens}`);
-        console.warn(`${chalk.yellowBright('Total Tokens:')} ${totalTokens}`);
+        console.warn(
+          `${chalk.yellowBright("Prompt Tokens:")} ${totalPromptTokens}`,
+        );
+        console.warn(
+          `${chalk.yellowBright("Completion Tokens:")} ${totalCompletionTokens}`,
+        );
+        console.warn(`${chalk.yellowBright("Total Tokens:")} ${totalTokens}`);
       }
-
     } catch (e) {
       spinner.fail("Failed");
       console.log(chalk.redBright(e));

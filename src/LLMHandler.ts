@@ -51,6 +51,6 @@ export class GroqClient {
     const message = apiCall.choices[0].message.content;
     const usage = apiCall.usage;
 
-    return {message, usage};
+    return { message, usage };
   }
 }
