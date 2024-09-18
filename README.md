@@ -25,6 +25,8 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
 
 2. Install dependencies:
 
+   > To install `bun`, please follow this [installation guide](https://bun.sh/docs/installation).
+
    ```
    bun install
    ```
