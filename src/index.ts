@@ -50,6 +50,7 @@ program
   .option("-lm,--list_models", "Lists the available models for the Groq API")
   .option("-m,--model <options>", "Give the model for the API to be used")
   .option("-a,--api_key <options>", "Provide the API Key for Groq API")
+  .option("-t,--token", "Lists the prompt tokens, completion tokens, and total tokens consumed from using the Groq API")
 
   .action(async (files: string[], options: string[] | any) => {
     if (options.list_models) {
