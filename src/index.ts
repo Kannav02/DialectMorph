@@ -100,6 +100,13 @@ please choose from the following options
         console.error("No Files Provided ");
         process.exit(1);
       }
+
+      const showTokenUsage = options.token || false;
+      
+      let totalPromptTokens = 0;
+      let totalCompletionTokens = 0;
+      let totalTokens = 0;
+
       await Promise.all(
         files.map(async (file) => {
           const filePath = path.resolve(file);
@@ -111,12 +118,19 @@ please choose from the following options
           const fileName = path.basename(file).split(".")[0];
           const fileExtension = path.basename(file).split(".")[1];
 
-          const message = await groqClient.getGroqChatCompletion(
+          const { message, usage } = (await groqClient.getGroqChatCompletion(
             fileContents,
             fileExtension,
             outputLanguage,
-            modelName,
-          );
+            modelName
+          )) as { message: string, usage: { prompt_tokens: number, completion_tokens: number, total_tokens: number } };
+
+          if (showTokenUsage && usage){
+            totalPromptTokens += usage.prompt_tokens;
+            totalCompletionTokens += usage.completion_tokens;
+            totalTokens += usage.total_tokens;
+          }
+
           const finalMessage = message as string;
           const code = extractCodeBlock(finalMessage);
 
@@ -134,6 +148,14 @@ please choose from the following options
           `\nThe files have been created in the transpiledFiles folder under the root directory`,
         ),
       );
+
+      if (showTokenUsage){
+        console.warn(chalk.blueBright("Token Usage Information:"));
+        console.warn(`${chalk.yellowBright('Prompt Tokens:')} ${totalPromptTokens}`);
+        console.warn(`${chalk.yellowBright('Completion Tokens:')} ${totalCompletionTokens}`);
+        console.warn(`${chalk.yellowBright('Total Tokens:')} ${totalTokens}`);
+      }
+
     } catch (e) {
       spinner.fail("Failed");
       console.log(chalk.redBright(e));
