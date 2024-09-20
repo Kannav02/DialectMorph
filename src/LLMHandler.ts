@@ -1,7 +1,6 @@
 import Groq from "groq-sdk";
 
-
-//singleton class for GroqqClient, wouldn't want more than two instanes at once 
+//singleton class for GroqqClient, wouldn't want more than two instanes at once
 export class GroqClient {
   // used to point at the instance that exists, this is static
   private static instance: GroqClient;
@@ -22,7 +21,7 @@ export class GroqClient {
     return GroqClient.instance;
   }
 
-  // method to list the models available by groq, again this is public as well 
+  // method to list the models available by groq, again this is public as well
   public async getGroqModels() {
     const models = await this.groq.models.list();
     const modelNames: string[] = models.data.map((model) => {

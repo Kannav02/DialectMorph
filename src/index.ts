@@ -1,6 +1,5 @@
 #!/usr/bin/env bun
 
-
 // imports
 import chalk from "chalk";
 import { textSync } from "figlet";
@@ -12,11 +11,8 @@ import { GroqClient } from "./LLMHandler";
 import { extractCodeBlock } from "./fileHelper";
 import ora from "ora";
 
-
-
 // global groqClient
 let groqClient: GroqClient;
-
 
 // helper function to instantiate Groq Instance whenever it is required
 const instantiateGroqInstance = (apiKey: string | null = null) => {
@@ -26,11 +22,8 @@ const instantiateGroqInstance = (apiKey: string | null = null) => {
   return groqClient;
 };
 
-
-
 const program = new Command();
 console.log(chalk.yellow(textSync("DialectMorph")));
-
 
 // map to store supported languages
 const supportedLangMap = new Map([
@@ -39,7 +32,6 @@ const supportedLangMap = new Map([
   ["c++", "cpp"],
   ["javascript", "js"],
 ]);
-
 
 // Commander.js instance
 program
@@ -72,14 +64,14 @@ program
 
   // finally after getting all the files and argumnets, this is the main action function that will run which will perform the function intended for the CLI
   .action(async (files: string[], options: string[] | any) => {
-    // this is just for listing the models from groq, part of a boolean option 
+    // this is just for listing the models from groq, part of a boolean option
     if (options.list_models) {
       const spinner = ora({
         spinner: "material",
         text: "Getting Models",
       }).start();
       try {
-          // checking if the user provided the apiKey
+        // checking if the user provided the apiKey
         const apiKey = options.api_key ?? null;
         instantiateGroqInstance(apiKey);
         const models = await groqClient.getGroqModels();
