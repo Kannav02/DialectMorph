@@ -1,19 +1,28 @@
 import Groq from "groq-sdk";
 
+
+//singleton class for GroqqClient, wouldn't want more than two instanes at once 
 export class GroqClient {
+  // used to point at the instance that exists, this is static
   private static instance: GroqClient;
+
+  // actual instance
   private groq: Groq;
 
+  // private constructor
   private constructor(apiKey: string | null = null) {
     this.groq = new Groq({ apiKey: apiKey || process.env.GROQ_API_KEY });
   }
 
+  // public method for the program to use
   public static getInstance(apiKey: string | null = null) {
     if (!GroqClient.instance) {
       GroqClient.instance = new GroqClient(apiKey);
     }
     return GroqClient.instance;
   }
+
+  // method to list the models available by groq, again this is public as well 
   public async getGroqModels() {
     const models = await this.groq.models.list();
     const modelNames: string[] = models.data.map((model) => {
@@ -21,6 +30,8 @@ export class GroqClient {
     });
     return modelNames;
   }
+
+  // main function that gets the completion from groq
   public async getGroqChatCompletion(
     fileContent: string,
     fileExtension: string,

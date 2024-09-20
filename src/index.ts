@@ -1,5 +1,7 @@
 #!/usr/bin/env bun
 
+
+// imports
 import chalk from "chalk";
 import { textSync } from "figlet";
 import { Command } from "commander";
@@ -10,8 +12,13 @@ import { GroqClient } from "./LLMHandler";
 import { extractCodeBlock } from "./fileHelper";
 import ora from "ora";
 
+
+
+// global groqClient
 let groqClient: GroqClient;
 
+
+// helper function to instantiate Groq Instance whenever it is required
 const instantiateGroqInstance = (apiKey: string | null = null) => {
   if (!groqClient) {
     groqClient = GroqClient.getInstance(apiKey);
@@ -19,9 +26,13 @@ const instantiateGroqInstance = (apiKey: string | null = null) => {
   return groqClient;
 };
 
+
+
 const program = new Command();
 console.log(chalk.yellow(textSync("DialectMorph")));
 
+
+// map to store supported languages
 const supportedLangMap = new Map([
   ["python", "py"],
   ["java", "java"],
@@ -29,6 +40,8 @@ const supportedLangMap = new Map([
   ["javascript", "js"],
 ]);
 
+
+// Commander.js instance
 program
   .version(chalk.whiteBright("1.0.0"))
   .name(chalk.magentaBright("dialectMorph"))
@@ -42,7 +55,9 @@ program
     4. Python`,
     ),
   )
+  // input files arguments
   .arguments("[files...]")
+  // options that would be required for different functions
   .option(
     "-l,--language <options>",
     "Output A Given File To The Given Language",
@@ -55,13 +70,16 @@ program
     "Lists the prompt tokens, completion tokens, and total tokens consumed from using the Groq API",
   )
 
+  // finally after getting all the files and argumnets, this is the main action function that will run which will perform the function intended for the CLI
   .action(async (files: string[], options: string[] | any) => {
+    // this is just for listing the models from groq, part of a boolean option 
     if (options.list_models) {
       const spinner = ora({
         spinner: "material",
         text: "Getting Models",
       }).start();
       try {
+          // checking if the user provided the apiKey
         const apiKey = options.api_key ?? null;
         instantiateGroqInstance(apiKey);
         const models = await groqClient.getGroqModels();
@@ -87,6 +105,7 @@ program
       const modelName = options.model ?? "";
       const keysArr = [...supportedLangMap.keys()];
       instantiateGroqInstance(apiKey);
+      // if no files in the arguments
       if (!keysArr.includes(outputLanguage.toLowerCase())) {
         console.error(
           chalk.red(`The output language is not supported by the tool,
@@ -98,12 +117,14 @@ please choose from the following options
         );
         process.exit(1);
       }
+      // making the directory to store the transpiled code
       const directoryPath = makeDir("transpiledFiles");
       if (files.length === 0) {
         console.error("No Files Provided ");
         process.exit(1);
       }
 
+      // checks if this option exists
       const showTokenUsage = options.token || false;
 
       let totalPromptTokens = 0;
@@ -158,7 +179,7 @@ please choose from the following options
           `\nThe files have been created in the transpiledFiles folder under the root directory`,
         ),
       );
-
+      // token usage code
       if (showTokenUsage) {
         console.warn(chalk.blueBright("Token Usage Information:"));
         console.warn(

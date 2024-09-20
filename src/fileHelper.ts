@@ -1,6 +1,8 @@
 import fs, { lstat } from "fs";
 import path from "path";
 
+// helper functions to perform file modifications and creation
+
 export function makeDir(directoryName: string) {
   const rootDir = process.cwd();
   const filePath = path.join(rootDir, directoryName);
@@ -20,6 +22,8 @@ export function createFile(
 
   fs.writeFileSync(totalPath, fileContent);
 }
+
+// this is a helper functioon to extract the code block from the response sent by groq
 export function extractCodeBlock(message: string) {
   const startIndex = message.indexOf("```");
   const endIndex = message.lastIndexOf("```");
