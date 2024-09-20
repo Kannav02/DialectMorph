@@ -143,10 +143,10 @@ dialectMorph ./examples/example.cpp -l python
 - t (--token)
   This command is one of the optional arguments and can be used with the main command to specify the desire to see how many tokens are consumed (i.e., prompt tokens, completion tokens, and total tokens) from making a request to the Groq API.
 
-   ```
-    dialectMorph ./examples/example.py -l java -t
+  ```
+   dialectMorph ./examples/example.py -l java -t
 
-   ```
+  ```
 
 ## Supported Languages
 
