@@ -10,7 +10,7 @@ on:
       - master
 jobs:
   lint:
-    name: Prettier Linting
+    name: Prettier and ESLint
     runs-on: ubuntu-latest
     steps:
       - name: Checks Out the Repository
@@ -22,6 +22,9 @@ jobs:
       - name: Installing Bun Dependencies
         run: |
           bun install .
-      - name: Checking for Linting
+      - name: Linting The Code
+        run: |
+          bun eslint .
+      - name: Checking for Formatting
         run: |
           bunx prettier . --check
