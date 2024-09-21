@@ -20,9 +20,12 @@
     "@types/commander": "^2.12.2",
     "@types/figlet": "^1.5.8",
     "@types/node": "^22.5.4",
+    "eslint": "^9.11.0",
+    "globals": "^15.9.0",
     "groq-sdk": "^0.7.0",
     "jsdoc": "^4.0.3",
-    "prettier": "3.3.3"
+    "prettier": "3.3.3",
+    "typescript-eslint": "^8.6.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
