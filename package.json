@@ -6,13 +6,17 @@
   "scripts": {
     "build": "bunx tsc",
     "start": "bun run build && dialectMorph",
+    "format": "bunx prettier . --write",
     "format:check": "bunx prettier . --check",
-    "lint":"bun eslint .",
+    "lint": "bun eslint .",
     "linkage": "bun link && bun link dialect-morph",
     "linkage:build": "bun run build && bun link && bun link dialect-morph",
-    "prepare": "husky install",
-    "pre-commit": "bunx prettier . --write",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "bun run format"
+    }
   },
   "bin": {
     "dialectMorph": "./dist/index.js"
