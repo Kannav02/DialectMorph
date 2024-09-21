@@ -6,10 +6,13 @@
   "scripts": {
     "build": "bunx tsc",
     "start": "bun run build && dialectMorph",
-    "format": "bunx prettier . --write",
     "format:check": "bunx prettier . --check",
+    "lint":"bun eslint .",
     "linkage": "bun link && bun link dialect-morph",
-    "linkage:build": "bun run build && bun link && bun link dialect-morph"
+    "linkage:build": "bun run build && bun link && bun link dialect-morph",
+    "prepare": "husky install",
+    "pre-commit": "bunx prettier . --write",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
     "dialectMorph": "./dist/index.js"
@@ -25,7 +28,8 @@
     "groq-sdk": "^0.7.0",
     "jsdoc": "^4.0.3",
     "prettier": "3.3.3",
-    "typescript-eslint": "^8.6.0"
+    "typescript-eslint": "^8.6.0",
+    "husky": "^8.0.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
