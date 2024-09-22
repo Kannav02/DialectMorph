@@ -1,4 +1,4 @@
-import fs, { lstat } from "fs";
+import fs from "fs";
 import path from "path";
 
 // helper functions to perform file modifications and creation
