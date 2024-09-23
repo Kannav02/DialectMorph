@@ -1,5 +1,5 @@
 import Groq from "groq-sdk";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI, UsageMetadata } from "@google/generative-ai";
 
 //singleton class for GroqqClient, wouldn't want more than two instanes at once
 export class GroqClient {
@@ -23,7 +23,7 @@ export class GroqClient {
   }
 
   // method to list the models available by groq, again this is public as well
-  public async getGroqModels() {
+  public async getModels() {
     const models = await this.groq.models.list();
     const modelNames: string[] = models.data.map((model) => {
       return model.id;
@@ -32,7 +32,7 @@ export class GroqClient {
   }
 
   // main function that gets the completion from groq
-  public async getGroqChatCompletion(
+  public async getChatCompletion(
     fileContent: string,
     fileExtension: string,
     outputType: string,
@@ -85,12 +85,19 @@ export class GeminiClient {
     return GeminiClient.instance;
   }
 
-  public async getGeminiChatCompletion(
+  public async getChatCompletion(
     fileContent: string,
     fileExtension: string,
     outputType: string,
     modelName: string | null,
-  ): Promise<object | null> {
+  ): Promise<{
+    message: string;
+    usage: {
+      prompt_tokens: number;
+      completion_tokens: number;
+      total_tokens: number;
+    };
+  } | null> {
     // tbh, gemini is pretty deranged in terms of model generation
     // first you get a model object from gemini
     // then you get the result from that model
@@ -113,11 +120,26 @@ export class GeminiClient {
     const result = await model.generateContent(userPrompt);
     const response = await result.response;
     const message = response.text();
-    const usage = response.usageMetadata;
+    const usage = response.usageMetadata as UsageMetadata;
 
-    return { message, usage };
+    let prompt_tokens = 0;
+    let completion_tokens = 0;
+    let total_tokens = 0;
+
+    prompt_tokens += usage?.promptTokenCount;
+    completion_tokens += usage?.candidatesTokenCount;
+    total_tokens += usage?.totalTokenCount;
+
+    return {
+      message,
+      usage: {
+        prompt_tokens,
+        completion_tokens,
+        total_tokens,
+      },
+    };
   }
-  public async getGeminiModels() {
+  public async getModels() {
     // upon researching , gemini doesn't support providing a list of available models, so we will proceed with a static list of models
 
     const geminiModels = ["gemini-1.5-flash", "gemini-1.5-pro"];
