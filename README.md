@@ -9,7 +9,7 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
 - Supports transpilation between Python, JavaScript, Java, and C++
 - Command-line interface for easy usage
 - Automatically creates a `transpiledFiles` directory for output
-- Utilizes Groq's language model for accurate code conversion
+- By default, Utilizes Groq's language model for accurate code conversion, option to use Gemini can be specified
 - User can also provide their own API-Key to be used in this CLI Tool
 - User can also request the the list of models available in the Groq-API
 - User can also specify the model that they want to use for their use-case
@@ -83,6 +83,7 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
      ```
 
    - Add your Groq API key: `GROQ_API_KEY=your_api_key_here`
+   - Add your Gemini API key: `GEMINI_API_KEY=api_key_goes_here`
 
 ## Usage
 
@@ -119,7 +120,7 @@ dialectMorph ./examples/example.cpp -l python
   ```
 
 - m (--model)
-  This command is one of the optional arguments and can be used with the main command to specify the model that you want to be used to fetch the request , by default the model is `llama3-8b-8192`
+  This command is one of the optional arguments and can be used with the main command to specify the model that you want to be used to fetch the request , by default the model is `llama3-8b-8192` for Groq and `gemini-1.5-flash` for Gemini
 
   **BE CAREFUL TO ONLY USE A MODEL NAME THAT EXISTS AFTER YOU USE THE LM OPTION OTHERWISE THE PROGRAM WILL THROW AN ERROR**
 
@@ -148,6 +149,14 @@ dialectMorph ./examples/example.cpp -l python
 
   ```
 
+- gem (--gemini)
+  This command is used to indicate to the CLI tool that Gemini LLM would be used to generate the code that would be used in the transpiled files, if this option isn't provided, groq is used by default
+
+  ```
+  dialectMorph ./examples/example.py -l java -gem
+
+  ```
+
 ## Supported Languages
 
 - Python (.py)
@@ -158,7 +167,7 @@ dialectMorph ./examples/example.cpp -l python
 ## Project Structure
 
 - `index.ts`: Main entry point and CLI logic
-- `LLMHandler.ts`: Handles interactions with the Groq API
+- `LLMHandler.ts`: Handles interactions with Groq API and Gemini API
 - `fileHelper.ts`: Utility functions for file and directory operations
 
 ## Contributing
@@ -182,6 +191,7 @@ This project is licensed under the [MIT License](LICENSE).
 ## Acknowledgements
 
 - [Groq SDK](https://www.groq.com/) for providing the language model API
+- [Gemini SDK](https://ai.google.dev/gemini-api/docs) for providing the a secondary language model API
 - [Commander.js](https://github.com/tj/commander.js/) for CLI argument parsing
 - [Figlet](https://github.com/patorjk/figlet.js) for ASCII art text generation
 - [Chalk](https://www.npmjs.com/package/chalk) for terminal styling
