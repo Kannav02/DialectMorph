@@ -7,19 +7,25 @@ import { Command } from "commander";
 import fs from "fs";
 import path from "path";
 import { createFile, makeDir } from "./fileHelper";
-import { GroqClient } from "./LLMHandler";
+import { GroqClient, GeminiClient } from "./LLMHandler";
 import { extractCodeBlock } from "./fileHelper";
 import ora from "ora";
 
-// global groqClient
-let groqClient: GroqClient;
+let client: GroqClient | GeminiClient;
 
 // helper function to instantiate Groq Instance whenever it is required
 const instantiateGroqInstance = (apiKey: string | null = null) => {
-  if (!groqClient) {
-    groqClient = GroqClient.getInstance(apiKey);
+  if (!client) {
+    client = GroqClient.getInstance(apiKey);
   }
-  return groqClient;
+  return client;
+};
+
+const instantiateGeminiInstance = (apiKey: string | null = null) => {
+  if (!client) {
+    client = GeminiClient.getInstance(apiKey);
+  }
+  return client;
 };
 
 const program = new Command();
@@ -61,9 +67,21 @@ program
     "-t,--token",
     "Lists the prompt tokens, completion tokens, and total tokens consumed from using the Groq API",
   )
+  .option(
+    "-gem,--gemini",
+    "Uses Gemini as the LLM to generate the result from prompts,default model for gemini is gemini-1.5-flash",
+  )
 
   // finally after getting all the files and argumnets, this is the main action function that will run which will perform the function intended for the CLI
   .action(async (files: string[], options: string[] | any) => {
+    const apiKey = options.api_key || null;
+
+    if (options.gemini) {
+      instantiateGeminiInstance(apiKey);
+    } else {
+      instantiateGroqInstance(apiKey);
+    }
+
     // this is just for listing the models from groq, part of a boolean option
     if (options.list_models) {
       const spinner = ora({
@@ -72,9 +90,7 @@ program
       }).start();
       try {
         // checking if the user provided the apiKey
-        const apiKey = options.api_key ?? null;
-        instantiateGroqInstance(apiKey);
-        const models = await groqClient.getGroqModels();
+        const models = await client.getModels();
         spinner.succeed("Fetched The Models");
         console.log("Available Models");
         console.log("-----------------------------------------");
@@ -93,10 +109,8 @@ program
     }).start();
     try {
       const outputLanguage: string = options.language as string;
-      const apiKey = options.api_key ?? "";
       const modelName = options.model ?? "";
       const keysArr = [...supportedLangMap.keys()];
-      instantiateGroqInstance(apiKey);
       // if no files in the arguments
       if (!keysArr.includes(outputLanguage.toLowerCase())) {
         console.error(
@@ -134,7 +148,7 @@ please choose from the following options
           const fileName = path.basename(file).split(".")[0];
           const fileExtension = path.basename(file).split(".")[1];
 
-          const { message, usage } = (await groqClient.getGroqChatCompletion(
+          const { message, usage } = (await client.getChatCompletion(
             fileContents,
             fileExtension,
             outputLanguage,
