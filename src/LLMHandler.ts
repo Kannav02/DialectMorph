@@ -78,7 +78,7 @@ export class GeminiClient {
     );
   }
 
-  public getInstance(apiKey: string | null = null) {
+  public static getInstance(apiKey: string | null = null) {
     if (!GeminiClient.instance) {
       GeminiClient.instance = new GeminiClient(apiKey);
     }
@@ -91,12 +91,12 @@ export class GeminiClient {
     outputType: string,
     modelName: string | null,
   ): Promise<object | null> {
-    // tbh, gemini is pretty deranged in terms of model generation 
+    // tbh, gemini is pretty deranged in terms of model generation
     // first you get a model object from gemini
     // then you get the result from that model
-    // then you parse the response form the result 
+    // then you parse the response form the result
     // then you parse the message and usage details from response using a function
-    // too many function calls 
+    // too many function calls
     const systemPrompt = `you are a code transpilation assistant. Your task is to convert source code from one programming language to another specified
     language. You will receive the source code and the target language. for each output of transpiled code, Ensure the transpiled code maintains the original functionality and logic 
     while adapting to the target language's idioms and best practices. Support transpilation for this language ${outputType}, 
