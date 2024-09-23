@@ -74,7 +74,7 @@ program
         // checking if the user provided the apiKey
         const apiKey = options.api_key ?? null;
         instantiateGroqInstance(apiKey);
-        const models = await groqClient.getGroqModels();
+        const models = (await groqClient.getGroqModels()) as string[];
         spinner.succeed("Fetched The Models");
         console.log("Available Models");
         console.log("-----------------------------------------");
@@ -83,7 +83,7 @@ program
         });
       } catch (e) {
         spinner.fail("Operation Failed");
-        console.log(e);
+        console.error(`Error while listing the models: ${e}`);
       }
       return;
     }
@@ -112,7 +112,7 @@ please choose from the following options
       // making the directory to store the transpiled code
       const directoryPath = makeDir("transpiledFiles");
       if (files.length === 0) {
-        console.error("No Files Provided ");
+        console.error("No files provided,exiting the operation");
         process.exit(1);
       }
 
@@ -127,7 +127,7 @@ please choose from the following options
         files.map(async (file) => {
           const filePath = path.resolve(file);
           if (!fs.existsSync(filePath)) {
-            console.error(chalk.redBright("The File Doesn't Exists"));
+            console.error(chalk.redBright("The file doesn't exist"));
             process.exit(1);
           }
           const fileContents = fs.readFileSync(filePath, "utf-8");
@@ -182,8 +182,10 @@ please choose from the following options
         );
         console.warn(`${chalk.yellowBright("Total Tokens:")} ${totalTokens}`);
       }
+
+      process.exit(0);
     } catch (e) {
-      spinner.fail("Failed");
+      spinner.fail("Unknown error occured");
       console.log(chalk.redBright(e));
       process.exit(1);
     }
