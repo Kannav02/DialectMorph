@@ -85,6 +85,29 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
    - Add your Groq API key: `GROQ_API_KEY=your_api_key_here`
    - Add your Gemini API key: `GEMINI_API_KEY=api_key_goes_here`
 
+## Configuration via TOML file
+
+You can specify your preferred settings for the CLI tool by creating and editing a TOML configuration file. 
+It will allow you to customize the default options to tailor the tool's behaviour to your needs.
+Learn more about TOML on the [official website](https://toml.io/en/).
+
+The arguments that can be specified in the `dialectMorph.config.toml`:
+
+- `api_key` - provide the API key to be used
+- `model` - set the Large Language Model of choice
+- `language` - specify the output programming language
+
+1. A sample configuration file `sample.dialectMorph.config.toml` is provided in the repository.
+2. To create your own configuration file, run the following command:
+
+ To create your own configuration file in your home directory, run the following command:
+
+```sh
+cp sample.dialectMorph.config.toml ~/dialectMorph.config.toml
+```
+
+**Important!** - Make sure that the config file you create is named `dialectMorph.config.toml`, as the tool will be looking for this specific file in your home directory.
+
 ## Usage
 
 Run DialectMorph using the following command:
@@ -198,3 +221,4 @@ This project is licensed under the [MIT License](LICENSE).
 - [Ora](https://www.npmjs.com/package/ora) for terminal spinner
 - [VHS](https://github.com/charmbracelet/vhs) for making the demo video for the CLI tool
 - [Prettier](https://prettier.io/) for maintaining consistent formatting throughout the code
+- [TOML](https://github.com/BinaryMuse/toml-node#readme) for parsing the contents of the config file
