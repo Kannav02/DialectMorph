@@ -88,7 +88,7 @@ program
       ...config,
       ...options,
     };
-    
+
     const apiKey = mergedOptions.api_key || null;
 
     if (options.gemini) {
