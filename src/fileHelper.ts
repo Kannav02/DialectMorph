@@ -42,7 +42,9 @@ export function extractCodeBlock(message: string) {
 }
 
 // helper function to load and parse a TOML config file
-export function loadTomlConfigFile( configFileName: string = "dialectMorph-config.toml") {
+export function loadTomlConfigFile(
+  configFileName: string = "dialectMorph.config.toml",
+) {
   const homeDir = os.homedir();
   const configFilePath = path.resolve(homeDir, configFileName);
 
