@@ -9,8 +9,8 @@ import path from "path";
 import { createFile, makeDir } from "./fileHelper";
 import { GroqClient, GeminiClient } from "./LLMHandler";
 import { extractCodeBlock } from "./fileHelper";
+import { loadTomlConfig } from "./fileHelper";
 import ora from "ora";
-import { loadTomlConfig } from "./configLoader";
 
 let client: GroqClient | GeminiClient;
 
