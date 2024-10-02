@@ -10,6 +10,7 @@ import { createFile, makeDir } from "./fileHelper";
 import { GroqClient, GeminiClient } from "./LLMHandler";
 import { extractCodeBlock } from "./fileHelper";
 import ora from "ora";
+import { loadTomlConfig } from "./configLoader";
 
 let client: GroqClient | GeminiClient;
 
@@ -30,6 +31,9 @@ const instantiateGeminiInstance = (apiKey: string | null = null) => {
 
 const program = new Command();
 console.log(chalk.yellow(textSync("DialectMorph")));
+
+// load config from the user's home directory
+const config = loadTomlConfig();
 
 // map to store supported languages
 const supportedLangMap = new Map([
@@ -74,7 +78,14 @@ program
 
   // finally after getting all the files and argumnets, this is the main action function that will run which will perform the function intended for the CLI
   .action(async (files: string[], options: string[] | any) => {
-    const apiKey = options.api_key || null;
+    // merge CLI options with config file options (CLI options take precedence)
+    const mergedOptions = {
+      ...config,
+      ...options,
+    };
+
+    console.log(mergedOptions);
+    const apiKey = mergedOptions.api_key || null;
 
     if (options.gemini) {
       instantiateGeminiInstance(apiKey);
@@ -109,7 +120,7 @@ program
     }).start();
     try {
       const outputLanguage: string = options.language as string;
-      const modelName = options.model ?? "";
+      const modelName = mergedOptions.model ?? "";
       const keysArr = [...supportedLangMap.keys()];
       // if no files in the arguments
       if (!keysArr.includes(outputLanguage.toLowerCase())) {
