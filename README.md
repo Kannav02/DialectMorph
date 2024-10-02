@@ -87,7 +87,7 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
 
 ## Configuration via TOML file
 
-You can specify your preferred settings for the CLI tool by creating and editing a TOML configuration file. 
+You can specify your preferred settings for the CLI tool by creating and editing a TOML configuration file.
 It will allow you to customize the default options to tailor the tool's behaviour to your needs.
 Learn more about TOML on the [official website](https://toml.io/en/).
 
@@ -100,7 +100,7 @@ The arguments that can be specified in the `dialectMorph.config.toml`:
 1. A sample configuration file `sample.dialectMorph.config.toml` is provided in the repository.
 2. To create your own configuration file, run the following command:
 
- To create your own configuration file in your home directory, run the following command:
+To create your own configuration file in your home directory, run the following command:
 
 ```sh
 cp sample.dialectMorph.config.toml ~/dialectMorph.config.toml
