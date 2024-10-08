@@ -3,33 +3,16 @@
 // imports
 import chalk from "chalk";
 import { textSync } from "figlet";
-import { Command } from "commander";
+import program from "./config";
 import fs from "fs";
 import path from "path";
 import { createFile, makeDir } from "./fileHelper";
-import { GroqClient, GeminiClient } from "./LLMHandler";
+import CompositeAIClient from "./CompositeClass";
 import { extractCodeBlock } from "./fileHelper";
 import { loadTomlConfigFile } from "./fileHelper";
+import AIClient from "./LLMHandler";
 import ora from "ora";
 
-let client: GroqClient | GeminiClient;
-
-// helper function to instantiate Groq Instance whenever it is required
-const instantiateGroqInstance = (apiKey: string | null = null) => {
-  if (!client) {
-    client = GroqClient.getInstance(apiKey);
-  }
-  return client;
-};
-
-const instantiateGeminiInstance = (apiKey: string | null = null) => {
-  if (!client) {
-    client = GeminiClient.getInstance(apiKey);
-  }
-  return client;
-};
-
-const program = new Command();
 console.log(chalk.yellow(textSync("DialectMorph")));
 
 // map to store supported languages
@@ -42,40 +25,10 @@ const supportedLangMap = new Map([
 
 // Commander.js instance
 program
-  .version(chalk.whiteBright("1.0.0"))
-  .name(chalk.magentaBright("dialectMorph"))
-  .usage(chalk.yellowBright("<input_files> -l <output_language>"))
-  .description(
-    chalk.cyanBright(
-      `This is a tool designed to transpile code from one language to the other, the options that this support right now is just the following ones
-    1. Java
-    2. JavaScript
-    3. C++
-    4. Python`,
-    ),
-  )
-  // input files arguments
-  .arguments("[files...]")
-  // options that would be required for different functions
-  .option(
-    "-l,--language <options>",
-    "Output A Given File To The Given Language",
-  )
-  .option("-lm,--list_models", "Lists the available models for the Groq API")
-  .option("-m,--model <options>", "Give the model for the API to be used")
-  .option("-a,--api_key <options>", "Provide the API Key for Groq API")
-  .option(
-    "-t,--token",
-    "Lists the prompt tokens, completion tokens, and total tokens consumed from using the Groq API",
-  )
-  .option(
-    "-gem,--gemini",
-    "Uses Gemini as the LLM to generate the result from prompts,default model for gemini is gemini-1.5-flash",
-  )
-
   // finally after getting all the files and argumnets, this is the main action function that will run which will perform the function intended for the CLI
   .action(async (files: string[], options: string[] | any) => {
     let config = {};
+    let client: AIClient;
     try {
       // load tool settings from the user's home directory
       config = loadTomlConfigFile();
@@ -90,11 +43,12 @@ program
     };
 
     const apiKey = mergedOptions.api_key || null;
+    const compositeAI = new CompositeAIClient(apiKey);
 
     if (options.gemini) {
-      instantiateGeminiInstance(apiKey);
+      client = compositeAI.getInstance("gemini");
     } else {
-      instantiateGroqInstance(apiKey);
+      client = compositeAI.getInstance();
     }
 
     // this is just for listing the models from groq, part of a boolean option
