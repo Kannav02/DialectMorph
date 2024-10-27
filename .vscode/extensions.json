@@ -1,0 +1,16 @@
+// for my reference, this folder prompts the user to install the given extensions when the person opens it on his machine
+
+{
+	"recommendations": [
+		"dbaeumer.vscode-eslint", // ESLint support
+		"esbenp.prettier-vscode", // Prettier formatting
+		"ms-vscode.vscode-typescript-next", // TypeScript support
+		"aaron-bond.better-comments", // Better code comments
+		"christian-kohler.path-intellisense", // Path autocompletion
+		"streetsidesoftware.code-spell-checker", // Spell checking
+		"eamodio.gitlens", // Git integration
+		"yoavbls.pretty-ts-errors", // Better TypeScript errors
+		"wayou.vscode-todo-highlight", // Highlight TODOs
+		"gruntfuggly.todo-tree" // Track TODOs
+	]
+}

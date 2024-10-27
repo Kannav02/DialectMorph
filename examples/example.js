@@ -1,3 +1,3 @@
 function main() {
-  console.log("Hello World From Javascript");
+	console.log("Hello World From Javascript");
 }

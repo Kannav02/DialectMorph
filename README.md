@@ -195,17 +195,7 @@ dialectMorph ./examples/example.cpp -l python
 
 ## Contributing
 
-Before making any Pull Requests or Pushes to the main branch, make sure to run the following linting scripts to pass the tests set by the CI pipeline
-
-```
-bun run format
-bun run format:check
-```
-
-`format` script here is used to format all of the files to the standards specified by prettier
-`format:check` script here is used to check if all of the files have been formatted by prettier
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for details on how to contribute to this project.
 
 ## License
 

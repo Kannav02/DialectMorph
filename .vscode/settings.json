@@ -1,0 +1,26 @@
+// arbitary settings for vs code to have good config settings
+
+{
+	"window.zoomLevel": 0.5,
+	"workbench.tree.indent": 20,
+	"editor.minimap.renderCharacters": false,
+	"files.autoSave": "afterDelay",
+	"files.autoSaveDelay": 1000,
+	"editor.cursorBlinking": "smooth",
+	"files.eol": "\n",
+	"files.trimTrailingWhitespace": true,
+
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+
+	"prettier.trailingComma": "es5",
+	"prettier.semi": true,
+	"prettier.tabWidth": 2,
+	"prettier.useTabs": true,
+	"prettier.printWidth": 80,
+
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "always"
+	},
+	"eslint.validate": ["typescript"]
+}
