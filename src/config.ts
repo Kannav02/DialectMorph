@@ -1,5 +1,5 @@
-import { Command } from "commander";
 import chalk from "chalk";
+import { Command } from "commander";
 
 // this file contains all the config settings for the main commander instance
 
