@@ -11,7 +11,11 @@
 		"lint": "bun eslint .",
 		"linkage": "bun link && bun link dialect-morph",
 		"linkage:build": "bun run build && bun link && bun link dialect-morph",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:watchAll": "jest --watchAll",
+		"test:single": "jest -t"
 	},
 	"husky": {
 		"hooks": {
@@ -22,15 +26,21 @@
 		"dialectMorph": "./dist/index.js"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.26.0",
+		"@babel/preset-env": "^7.26.0",
+		"@babel/preset-typescript": "^7.26.0",
 		"@types/bun": "latest",
 		"@types/chalk": "^2.2.0",
 		"@types/commander": "^2.12.2",
 		"@types/figlet": "^1.5.8",
 		"@types/node": "^22.5.4",
+		"babel-jest": "^29.7.0",
 		"globals": "^15.9.0",
 		"groq-sdk": "^0.7.0",
 		"husky": "^8.0.0",
+		"jest": "^29.7.0",
 		"jsdoc": "^4.0.3",
+		"nock": "^13.5.6",
 		"oxlint": "^0.10.3",
 		"prettier": "3.3.3",
 		"typescript-eslint": "^8.6.0"

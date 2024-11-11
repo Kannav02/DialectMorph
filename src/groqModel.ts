@@ -3,7 +3,7 @@ import AIClient from "./LLMHandler";
 
 export default class GroqClient implements AIClient {
 	// used to point at the instance that exists, this is static
-	private static instance: GroqClient;
+	private static instance: GroqClient | null;
 
 	// actual instance
 	private groq: Groq;
@@ -19,6 +19,9 @@ export default class GroqClient implements AIClient {
 			GroqClient.instance = new GroqClient(apiKey);
 		}
 		return GroqClient.instance;
+	}
+	public static resetInstance(): void {
+		GroqClient.instance = null;
 	}
 
 	// method to list the models available by groq, again this is public as well
@@ -56,8 +59,8 @@ export default class GroqClient implements AIClient {
 					{
 						role: "system",
 						content: `you are a code transpilation assistant. Your task is to convert source code from one programming language to another specified
-              language. You will receive the source code and the target language. for each output of transpiled code, Ensure the transpiled code maintains the original functionality and logic 
-              while adapting to the target language's idioms and best practices. Support transpilation for this language ${outputType}, 
+              language. You will receive the source code and the target language. for each output of transpiled code, Ensure the transpiled code maintains the original functionality and logic
+              while adapting to the target language's idioms and best practices. Support transpilation for this language ${outputType},
               TypeScript, and Ruby.Your goal is to produce accurate, readable, and efficient code in the target language and to just return back code , no other things so i can add them into the file directly.`,
 					},
 					{

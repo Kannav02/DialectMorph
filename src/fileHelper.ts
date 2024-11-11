@@ -25,7 +25,7 @@ export function createFile(
 	fs.writeFileSync(totalPath, fileContent);
 }
 
-// this is a helper functioon to extract the code block from the response sent by groq
+// this is a helper function to extract the code block from the response sent by groq
 export function extractCodeBlock(message: string) {
 	const startIndex = message.indexOf("```");
 	const endIndex = message.lastIndexOf("```");

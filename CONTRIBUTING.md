@@ -15,6 +15,30 @@ cd DialectMorph
    - Make sure you have bun installed (follow the installation guide)
    - Run `bun install`
 
+## Testing
+
+The project uses Jest for testing. Here are the available test commands:
+
+#### Note, this project utilises NPM for testing with Jest, make sure you have it installed on your machine locally
+
+```bash
+# Run all tests
+npm test
+
+# Watch mode (runs tests related to changed files)
+npm test:watch
+
+# Watch all files
+npm test:watchAll
+
+# Run a specific test file
+npm test path/to/your/test.test.ts
+
+# Run tests matching a specific name
+npm test -t "test name"
+
+```
+
 ## Code Formatting and Quality Standards
 
 Before submitting any Pull Requests or pushing to the main branch, ensure you run the following linting scripts to pass the CI pipeline:
@@ -24,11 +48,10 @@ bun run format      # Format all files according to prettier standards
 bun run format:check # Verify all files are properly formatted
 ```
 
-To lint and check the code use the following commands
+To lint and check the code use the following commands:
 
 ```sh
 bun run lint
-
 ```
 
 The project uses:
@@ -61,7 +84,7 @@ Format-on-save is enabled by default
 
 ## Pull Request Process
 
-1. Ensure your code passes all formatting checks
+1. Ensure your code passes all tests and formatting checks
 2. Update the README.md if you've added any new features or changed existing functionality
 3. Your PR will be reviewed by maintainers
 
