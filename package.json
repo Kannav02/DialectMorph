@@ -15,7 +15,8 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:watchAll": "jest --watchAll",
-		"test:single": "jest -t"
+		"test:single": "jest -t",
+		"test:coverage": "jest --coverage"
 	},
 	"husky": {
 		"hooks": {
