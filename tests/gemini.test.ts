@@ -18,9 +18,9 @@ describe("GeminiClient", () => {
 	});
 
 	it("should handle errors in chat completion", async () => {
-		// @ts-expect-error: error assignment chabnged
 		const mockGenerateContent = jest
 			.fn()
+			// @ts-expect-error: this is for the error assignment
 			.mockRejectedValue(new Error("API Error"));
 
 		(GoogleGenerativeAI as jest.Mock).mockImplementation(() => ({
