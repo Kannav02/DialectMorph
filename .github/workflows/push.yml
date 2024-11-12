@@ -15,6 +15,10 @@ jobs:
     steps:
       - name: Checks Out the Repository
         uses: actions/checkout@v4
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
       - name: Sets up the Bun enviornment
         uses: oven-sh/setup-bun@v2
         with:
@@ -22,9 +26,13 @@ jobs:
       - name: Installing Bun Dependencies
         run: |
           bun install .
+          bun install -D jest ts-jest @types/jest typescript
       - name: Linting The Code
         run: |
           bun eslint .
       - name: Checking for Formatting
         run: |
           bunx prettier . --check
+      - name: Running Tests
+        run: |
+          npm test
