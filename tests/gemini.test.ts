@@ -40,6 +40,42 @@ describe("GeminiClient", () => {
 		expect(result).toBeNull();
 	});
 
+	it("should return completion in expected format", async () => {
+		const mockGenerateContent = jest.fn().mockImplementation(async () =>
+			Promise.resolve({
+				response: {
+					text: jest.fn().mockReturnValueOnce("Mock message"),
+					usageMetadata: {
+						promptTokenCount: 100,
+						candidatesTokenCount: 200,
+						totalTokenCount: 300,
+					},
+				},
+			})
+		);
+
+		(GoogleGenerativeAI as jest.Mock).mockImplementation(() => ({
+			getGenerativeModel: () => ({
+				generateContent: () => {
+					return mockGenerateContent();
+				},
+			}),
+		}));
+
+		const client = GeminiClient.getInstance("test-key");
+		const result = await client.getChatCompletion(
+			"const sum = (a, b) => a + b;",
+			".ts",
+			"python",
+			"gemini-1.5-pro"
+		);
+
+		expect(result).toEqual({
+			message: "Mock message",
+			usage: { completion_tokens: 200, prompt_tokens: 100, total_tokens: 300 },
+		});
+	});
+
 	it("should return available models", async () => {
 		const client = GeminiClient.getInstance("test-key");
 		const models = await client.getModels();
