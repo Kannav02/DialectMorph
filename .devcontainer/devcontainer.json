@@ -1,0 +1,46 @@
+{
+	"name": "Dev Container For DialectMorph",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"window.zoomLevel": 0.5,
+				"workbench.tree.indent": 20,
+				"editor.minimap.renderCharacters": false,
+				"files.autoSave": "afterDelay",
+				"files.autoSaveDelay": 1000,
+				"editor.cursorBlinking": "smooth",
+				"files.eol": "\n",
+				"files.trimTrailingWhitespace": true,
+
+				"editor.defaultFormatter": "esbenp.prettier-vscode",
+				"editor.formatOnSave": true,
+
+				"prettier.trailingComma": "es5",
+				"prettier.semi": true,
+				"prettier.tabWidth": 2,
+				"prettier.useTabs": true,
+				"prettier.printWidth": 80,
+
+				"editor.codeActionsOnSave": {
+					"source.fixAll.eslint": "always"
+				},
+				"eslint.validate": ["typescript"]
+			},
+			"extensions": [
+				"dbaeumer.vscode-eslint", // ESLint support
+				"esbenp.prettier-vscode", // Prettier formatting
+				"ms-vscode.vscode-typescript-next", // TypeScript support
+				"aaron-bond.better-comments", // Better code comments
+				"christian-kohler.path-intellisense", // Path autocompletion
+				"streetsidesoftware.code-spell-checker", // Spell checking
+				"eamodio.gitlens", // Git integration
+				"yoavbls.pretty-ts-errors", // Better TypeScript errors
+				"wayou.vscode-todo-highlight", // Highlight TODOs
+				"gruntfuggly.todo-tree" // Track TODOs
+			]
+		}
+	}
+}
