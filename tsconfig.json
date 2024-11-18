@@ -15,7 +15,6 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"noFallthroughCasesInSwitch": true,
-		"rootDir": "src",
 		"outDir": "dist",
 		"esModuleInterop": true,
 
@@ -24,5 +23,5 @@
 		"noUnusedParameters": false,
 		"noPropertyAccessFromIndexSignature": false
 	},
-	"exclude": ["examples", "node_modules", "dist", "eslint.config.js"]
+	"include": ["src/**/*", "tests/**/*"]
 }
