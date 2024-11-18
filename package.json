@@ -5,6 +5,8 @@
 	"version": "1.0.0",
 	"scripts": {
 		"build": "bunx tsc",
+		"prePublish": "bun run build",
+		"publish": "npm publish",
 		"start": "bun run build && dialectMorph",
 		"format": "bunx prettier . --write",
 		"format:check": "bunx prettier . --check",
