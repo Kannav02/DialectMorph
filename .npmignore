@@ -1,0 +1,33 @@
+# Source files
+src/
+tests/
+examples/
+
+# Config files
+.github/
+.vscode/
+.devcontainer/
+.husky/
+.prettierignore
+.prettierrc
+.babelrc
+demo.tape
+tsconfig.json
+jest.config.cjs
+eslint.config.js
+
+# Git files
+.git/
+.gitignore
+
+# Environment files
+.env
+.env.example
+
+# Build artifacts
+coverage/
+*.log
+demo.gif
+
+# Development files
+CONTRIBUTING.md
