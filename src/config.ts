@@ -6,7 +6,7 @@ import { Command } from "commander";
 const program = new Command();
 
 program
-	.version(chalk.whiteBright("1.0.0"))
+	.version(chalk.whiteBright("1.2.7"))
 	.name(chalk.magentaBright("dialectMorph"))
 	.usage(chalk.yellowBright("<input_files> -l <output_language>"))
 	.description(
