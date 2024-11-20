@@ -15,6 +15,71 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
 - User can also specify the model that they want to use for their use-case
 
 ## Installation
+### Two Installation Options
+#### Global Package Installation
+Based on your existing README, here are the proposed updates to incorporate the package registry usage and other instructions:
+
+---
+
+### Updated Sections:
+
+#### Installation
+Update the installation instructions to guide users on downloading and installing your project via the package registry (e.g., npm, Bun, or other relevant registries). Replace the `git clone` steps if applicable.
+
+#### User Testing Feedback
+Include clarifications or details based on feedback from someone who tested the project. This might involve expanding troubleshooting steps, simplifying commands, or making examples more detailed.
+
+#### Usage
+Ensure the usage section includes any adjustments needed after verifying the tool works as intended when installed from the registry. Add examples to cover common use cases.
+
+---
+
+Here's an updated draft:
+
+---
+
+# DialectMorph
+
+![Demo Gif](./demo.gif)
+
+DialectMorph is a powerful code transpilation tool designed to convert source code from one programming language to another. It leverages the Groq API to perform intelligent code translations while maintaining the original functionality and logic.
+
+## Features
+
+- Supports transpilation between Python, JavaScript, Java, and C++
+- Command-line interface for easy usage
+- Automatically creates a `transpiledFiles` directory for output
+- Utilizes Groq's or Gemini's language models for accurate code conversion
+- Allows users to specify API keys and models via CLI or configuration files
+
+## Installation
+
+### Install via Package Registry
+
+1. Ensure you have [Npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) ann [Bun](https://bun.sh/docs/installation) globally .
+2. Install DialectMorph globally:
+
+   ```sh
+   npm i -g dialect-morph
+   ```
+
+3. Verify the installation:
+
+   ```sh
+   dialectMorph --help
+   ```
+
+   If the `dialectMorph` command isn't recognized, ensure your `PATH` variable includes Bun's binaries. Add this to your shell configuration (`.zshrc` or `.bashrc`):
+
+   ```sh
+   export PATH="/Users/username/.bun/bin:$PATH"
+   source ~/.zshrc
+   ```
+
+4. Set up your API keys by creating a `.env` file or editing `~/.dialectMorph.config.toml`.
+
+
+### Github Repo Installation
 
 1. Clone the repository:
 
@@ -210,5 +275,4 @@ This project is licensed under the [MIT License](LICENSE).
 - [Chalk](https://www.npmjs.com/package/chalk) for terminal styling
 - [Ora](https://www.npmjs.com/package/ora) for terminal spinner
 - [VHS](https://github.com/charmbracelet/vhs) for making the demo video for the CLI tool
-- [Prettier](https://prettier.io/) for maintaining consistent formatting throughout the code
 - [TOML](https://github.com/BinaryMuse/toml-node#readme) for parsing the contents of the config file
