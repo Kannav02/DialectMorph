@@ -15,8 +15,11 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
 - User can also specify the model that they want to use for their use-case
 
 ## Installation
+
 ### Two Installation Options
+
 #### Global Package Installation
+
 Based on your existing README, here are the proposed updates to incorporate the package registry usage and other instructions:
 
 ---
@@ -24,12 +27,15 @@ Based on your existing README, here are the proposed updates to incorporate the 
 ### Updated Sections:
 
 #### Installation
+
 Update the installation instructions to guide users on downloading and installing your project via the package registry (e.g., npm, Bun, or other relevant registries). Replace the `git clone` steps if applicable.
 
 #### User Testing Feedback
+
 Include clarifications or details based on feedback from someone who tested the project. This might involve expanding troubleshooting steps, simplifying commands, or making examples more detailed.
 
 #### Usage
+
 Ensure the usage section includes any adjustments needed after verifying the tool works as intended when installed from the registry. Add examples to cover common use cases.
 
 ---
@@ -77,7 +83,6 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
    ```
 
 4. Set up your API keys by creating a `.env` file or editing `~/.dialectMorph.config.toml`.
-
 
 ### Github Repo Installation
 
