@@ -1,0 +1,42 @@
+name: Automated Release Package
+
+on:
+  push:
+    tags:
+      - "*"
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    name: Release Package
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Sets up the Bun enviornment
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - name: Installing Bun Dependencies
+        run: |
+          bun install .
+          bun install -D jest ts-jest @types/jest typescript
+
+      - name: Linting and Formatting
+        run: |
+          bun eslint .
+          bunx prettier . --check
+
+      - name: Running Tests
+        run: |
+          npm test
+
+      - name: Release Package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          bun release

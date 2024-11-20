@@ -2,7 +2,7 @@
 	"name": "dialect-morph",
 	"module": "index.ts",
 	"type": "module",
-	"version": "1.2.7",
+	"version": "1.0.0",
 	"scripts": {
 		"build": "bunx tsc",
 		"prePublishOnly": "bun run build",
