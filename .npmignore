@@ -3,6 +3,11 @@ src/
 tests/
 examples/
 
+
+# Include dist directory
+!dist/
+!dist/*
+
 # Config files
 .github/
 .vscode/
