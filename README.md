@@ -20,27 +20,77 @@ DialectMorph is a powerful code transpilation tool designed to convert source co
 
 #### Global Package Installation
 
-Based on your existing README, here are the proposed updates to incorporate the package registry usage and other instructions:
+To install DialectMorph globally:
+
+1. Ensure you have [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) installed on your system.
+2. Run the following command to install globally:
+
+   ```bash
+   npm install -g dialect-morph
+   ```
+
+3. Verify the installation by running:
+
+   ```bash
+   dialectMorph -V
+   ```
+
+   If the `dialectMorph` command isn’t recognized, ensure your `PATH` variable includes npm binaries. You may also need to restart your terminal.
 
 ---
 
-### Updated Sections:
+#### Local Installation
 
-#### Installation
+To install DialectMorph locally in your project:
 
-Update the installation instructions to guide users on downloading and installing your project via the package registry (e.g., npm, Bun, or other relevant registries). Replace the `git clone` steps if applicable.
+1. Clone the repository:
 
-#### User Testing Feedback
+   ```bash
+   git clone https://github.com/Kannav02/DialectMorph.git
+   cd DialectMorph
+   ```
 
-Include clarifications or details based on feedback from someone who tested the project. This might involve expanding troubleshooting steps, simplifying commands, or making examples more detailed.
+2. Install dependencies using [Bun](https://bun.sh/docs/installation):
 
-#### Usage
+   ```bash
+   bun install
+   ```
 
-Ensure the usage section includes any adjustments needed after verifying the tool works as intended when installed from the registry. Add examples to cover common use cases.
+3. Build the TypeScript files to JavaScript:
+
+   ```bash
+   bun run build
+   ```
+
+4. Link the CLI tool globally:
+
+   ```bash
+   bun link
+   ```
+
+5. Add Bun binaries to your `PATH` variable:
+
+   ```bash
+   export PATH="/Users/username/.bun/bin:$PATH"
+   source ~/.zshrc
+   ```
+
+6. Configure the Groq API key and Gemini API key:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Add your API keys to the `.env` file:
+
+   ```
+   GROQ_API_KEY=your_api_key_here
+   GEMINI_API_KEY=your_gemini_api_key_here
+   ```
 
 ---
 
-Here's an updated draft:
+####
 
 ---
 
