@@ -16,6 +16,7 @@
 		"skipLibCheck": true,
 		"noFallthroughCasesInSwitch": true,
 		"outDir": "dist",
+		"rootDir": "src",
 		"esModuleInterop": true,
 
 		// Some stricter flags (disabled by default)
@@ -23,5 +24,12 @@
 		"noUnusedParameters": false,
 		"noPropertyAccessFromIndexSignature": false
 	},
-	"include": ["src/**/*", "tests/**/*"]
+	"exclude": [
+		"dist/",
+		"coverage/",
+		"examples/",
+		"tests/",
+		"eslint.config.js",
+		"jest.config.cjs"
+	]
 }
