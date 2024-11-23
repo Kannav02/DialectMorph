@@ -24,26 +24,6 @@ Based on your existing README, here are the proposed updates to incorporate the 
 
 ---
 
-### Updated Sections:
-
-#### Installation
-
-Update the installation instructions to guide users on downloading and installing your project via the package registry (e.g., npm, Bun, or other relevant registries). Replace the `git clone` steps if applicable.
-
-#### User Testing Feedback
-
-Include clarifications or details based on feedback from someone who tested the project. This might involve expanding troubleshooting steps, simplifying commands, or making examples more detailed.
-
-#### Usage
-
-Ensure the usage section includes any adjustments needed after verifying the tool works as intended when installed from the registry. Add examples to cover common use cases.
-
----
-
-Here's an updated draft:
-
----
-
 # DialectMorph
 
 ![Demo Gif](./demo.gif)
