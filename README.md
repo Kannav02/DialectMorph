@@ -26,7 +26,6 @@ Based on your existing README, here are the proposed updates to incorporate the 
 
 # DialectMorph
 
-
 ![Demo Gif](./demo.gif)
 
 DialectMorph is a powerful code transpilation tool designed to convert source code from one programming language to another. It leverages the Groq API to perform intelligent code translations while maintaining the original functionality and logic.
